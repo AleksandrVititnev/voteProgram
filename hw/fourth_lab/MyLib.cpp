@@ -1,4 +1,12 @@
+/* figure: MyLib.cpp */
+/*********************/
+/* Filename: MyLib.cpp */
+/* Date: 8/11/2021     */
+/* Author: Aleksandr Vititnev */
 #include "MyLib.h"
+#define myPi 3.14;
+
+const double rad = 360 / 2 / myPi;
 
 double pow(const double& number, const int& step) {
     double ans = number;
@@ -20,23 +28,27 @@ int fact(const int& number) {
 }
 
 double abs(const double& number) {
-    return (number > 0 ? number : -number);
+    return (number >= 0 ? number : -number);
 }
 
 double sin(const double& number) {
+    double x = number;
+    //if (number * rad > 360) x = x - (static_cast<int>(x * rad / 360) * 360) / rad;
     const double eps = 1e-15;
     double s = 0;
-    double r = number;
+    double r = x;
     int n = 1;
     while (abs(r) > eps) {
         s += r;
         n = n + 2;
-        r = -r * number * number / (n * (n - 1));
+        r = -r * x * x / (n * (n - 1));
     }
     return s;
 }
 
 double cos(const double& number) {
+    double x = number;
+    if (number * rad > 360) x = x - (static_cast<int>(x * rad / 360) * 360) / rad;
     const double eps = 1e-15;
     double s = 0;
     double r = 1;
@@ -44,7 +56,7 @@ double cos(const double& number) {
     while (abs(r) > eps) {
         s += r;
         n = n + 2;
-        r = -r * number * number / (n * (n - 1));
+        r = -r * x * x / (n * (n - 1));
     }
     return s;
 }
@@ -61,13 +73,12 @@ double ln(const double& number) {
     return 2 * s;
 }
 
-double exp() {
-    double x = 1;
+double exp(const double& number) {
     double eps = 1e-15;
     double a = 1;
     double s = 1;
     for (int n = 1; a > eps; n++) {
-        a *= x / n;
+        a *= number / n;
         s += a;
     }
     return s;
