@@ -1,3 +1,8 @@
+/* figure: CalcXY.cpp */
+/*********************/
+/* Filename: CalcXY.cpp */
+/* Date: 8/11/2021     */
+/* Author: Aleksandr Vititnev */
 #include "MyLib.h"
 
 double calcXY(const double& x, const double& y) {

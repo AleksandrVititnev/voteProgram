@@ -7,15 +7,20 @@
 #define MYLIB_H
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+
+void showLogo();
 
 double pow(const double& number, const int& step);
+int fact(const int& number);
 double abs(const double& number);
+
 double sin(const double& number);
 double cos(const double& number);
 double ln(const double& number);
 double exp(const double& number);
-
-int fact(const int& number);
 
 double calcXY(const double& x, const double& y);
 
