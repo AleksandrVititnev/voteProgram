@@ -63,6 +63,7 @@ int main() {
                 y += hy;
             }
             x += hx;
+            y = c;
         }
 
         for (int x = 0; x < len1; x++) {

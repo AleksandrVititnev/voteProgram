@@ -33,7 +33,7 @@ double abs(const double& number) {
 
 double sin(const double& number) {
     double x = number;
-    //if (number * rad > 360) x = x - (static_cast<int>(x * rad / 360) * 360) / rad;
+    if (number * rad > 360) x = x - (static_cast<int>(x * rad / 360) * 360) / rad;
     const double eps = 1e-15;
     double s = 0;
     double r = x;
