@@ -14,7 +14,7 @@ int main() {
 
     showLogo();
 
-    std::cout << "Здраствуйте, вы хотите ввести данные для вычисления, " 
+    std::cout << "Здраствуйте, вы хотите ввести данные для вычисления сами, " 
                 << "или нам придумать их самостоятельно?" << "\n" 
                 << "Введите: u - пользовательский(по умолчанию), a - автомотический: ";
     std::cin >> forSelect;
@@ -78,15 +78,34 @@ int main() {
     len1 = abs(b - a) / hx + 1;
     len2 = abs(d - c) / hy + 1;
 
-    double*** table = new double** [len1];
-    for (int x = 0; x < len1; x++) {
-        table[x] = new double* [len2];
-    }
+////////////////////////////////////////////////////////////////////////
+        double*** table = new double** [len1];
 
-    for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
-        for (int secondLayer = 0; secondLayer < len2; secondLayer++) {
-            table[firstLayer][secondLayer] = new double [len3];
+    try {
+        if (!table) throw "memory!";
+        for (int x = 0; x < len1; x++) {
+            table[x] = new double* [len2];
+            if (!table[x]) throw -254;
         }
+
+        for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
+            for (int secondLayer = 0; secondLayer < len2; secondLayer++) {
+                table[firstLayer][secondLayer] = new double [len3];
+                if (!table[firstLayer][secondLayer]) throw -254;
+            }
+        }
+    }
+    catch(int) {
+        std::cout << "Out of memory!\n";
+        for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
+            for (int secondLayer = 0; secondLayer < len2; secondLayer++) {
+                delete[] table[firstLayer][secondLayer];
+            }
+        }
+        for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
+            delete[] table[firstLayer];
+        }
+        delete[] table;
     }
 
     for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
@@ -96,23 +115,28 @@ int main() {
             }
         }
     }
+////////////////////////////////////////////////////////////////////////
 
     for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
-        std::cout << "X: " << x << "\n";
         for (int secondLayer = 0; secondLayer < len2; secondLayer++) {
             *(*(*(table + firstLayer) + secondLayer) + 0) = x;
             *(*(*(table + firstLayer) + secondLayer) + 1) = y;
             *(*(*(table + firstLayer) + secondLayer) + 2) = calcXY(x, y);
-            file << "X: " << table[firstLayer][secondLayer][0] << " | Y: " 
-                << table[firstLayer][secondLayer][1] << " | F: " 
-                << table[firstLayer][secondLayer][2] << "\n";
-            std::cout << "\t y: " << y << " | F: " << table[firstLayer][secondLayer][2] << "\n";
+            file << std::fixed << std::setprecision(3) 
+                << "X: " << std::setw(6) << table[firstLayer][secondLayer][0] 
+                << " | Y: " << std::setw(6) << table[firstLayer][secondLayer][1] 
+                << " | F: " << std::setw(6) << table[firstLayer][secondLayer][2] << "\n";
+            std::cout << std::fixed << std::setprecision(3)
+                    << "X: " << std::setw(6) << table[firstLayer][secondLayer][0]
+                    << " | Y: " << std::setw(6) << table[firstLayer][secondLayer][1]
+                    << " | F: " << std::setw(6) << table[firstLayer][secondLayer][2] << "\n";
             y += hy;
         }
         x += hx;
         y = c;
     }
 
+////////////////////////////////////////////////////////////////////////
     for (int firstLayer = 0; firstLayer < len1; firstLayer++) {
         for (int secondLayer = 0; secondLayer < len2; secondLayer++) {
             delete[] table[firstLayer][secondLayer];
@@ -122,5 +146,6 @@ int main() {
         delete[] table[firstLayer];
     }
     delete[] table;
+////////////////////////////////////////////////////////////////////////
     return 0;
 }
