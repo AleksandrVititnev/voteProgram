@@ -16,7 +16,7 @@ int main() {
 
     std::cout << "Здраствуйте, вы хотите ввести данные для вычисления, " 
                 << "или нам придумать их самостоятельно?" << "\n" 
-                << "Введите: u - пользовательский(по умолчанию), a - автомотический:";
+                << "Введите: u - пользовательский(по умолчанию), a - автомотический: ";
     std::cin >> forSelect;
 
     if (!std::cin.good() || (forSelect != 'a' && forSelect != 'u')) {
@@ -26,7 +26,7 @@ int main() {
 
     if (forSelect == 'u') {
         bool correct = false;
-        while (correct) {
+        while (!correct) {
             std::cout << "Введите левую границу первой переменной x: ";
             std::cin >> a;
             std::cout << "Введите правую границу первой переменной x: ";
@@ -36,10 +36,11 @@ int main() {
                 std::cin >> hx;
                 correct = true;
             }
+            else std::cout << "Неверно введённые границы: первая < вторая!\n";
         }
 
         correct = false;
-        while (correct) {
+        while (!correct) {
             std::cout << "Введите левую границу первой переменной y: ";
             std::cin >> c;
             std::cout << "Введите правую границу первой переменной y: ";
@@ -49,6 +50,7 @@ int main() {
                 std::cin >> hy;
                 correct = true;
             }
+            else std::cout << "Неверно введённые границы: первая < вторая!\n";
         }
     }
 
