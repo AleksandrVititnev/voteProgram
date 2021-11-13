@@ -25,25 +25,30 @@ int main() {
     }
 
     if (forSelect == 'u') {
-        bool correct = true;
-        std::cout << "Введите левую границу первой переменной x: ";
-        std::cin >> a;
-        std::cout << "Введите правую границу первой переменной x: ";
-        std::cin >> b;
-        if (a > b) correct = false;
+        bool correct = false;
+        while (correct) {
+            std::cout << "Введите левую границу первой переменной x: ";
+            std::cin >> a;
+            std::cout << "Введите правую границу первой переменной x: ";
+            std::cin >> b;
+            if (a < b)  {
+                std::cout << "Введите шаг для первой переменной x: ";
+                std::cin >> hx;
+                correct = true;
+            }
+        }
 
-        std::cout << "Введите левую границу первой переменной y: ";
-        std::cin >> c;
-        std::cout << "Введите правую границу первой переменной y: ";
-        std::cin >> d;
-        if (c > d) correct = false;
-
-        if (correct || std::cin.good()) {
-            std::cout << "Введите шаг для первой переменной x: ";
-            std::cin >> hx;
-        
-            std::cout << "Введите шаг для первой переменной y: ";
-            std::cin >> hy;
+        correct = false;
+        while (correct) {
+            std::cout << "Введите левую границу первой переменной y: ";
+            std::cin >> c;
+            std::cout << "Введите правую границу первой переменной y: ";
+            std::cin >> d;
+            if (c < d)  {
+                std::cout << "Введите шаг для первой переменной y: ";
+                std::cin >> hy;
+                correct = true;
+            }
         }
     }
 
@@ -99,7 +104,7 @@ int main() {
             file << "X: " << table[firstLayer][secondLayer][0] << " | Y: " 
                 << table[firstLayer][secondLayer][1] << " | F: " 
                 << table[firstLayer][secondLayer][2] << "\n";
-            std::cout << "\t y: " << y << " | F: " << *(*(*(table + firstLayer) + secondLayer) + 2) << "\n";
+            std::cout << "\t y: " << y << " | F: " << table[firstLayer][secondLayer][2] << "\n";
             y += hy;
         }
         x += hx;
