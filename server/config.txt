@@ -1,0 +1,5 @@
+amountCand=3
+amountClients=5
+Admiral Smith
+Sheldon Cooper
+Sasha Vititnev
